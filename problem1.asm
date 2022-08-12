@@ -7,36 +7,36 @@
 main:
 	push rbp
 	mov rbp, rsp
-	xor rcx, rcx
-	xor rbx, rbx
-lp1:	
-	add rbx, 3
-	add rcx, rbx
-	cmp rbx, upb-3
-	jl lp1
+
+	mov r8, 3
+	call sumloop
 	mov rsi, rcx
 
-	xor rbx,rbx
-	xor rcx,rcx
-lp2:	
-	add rbx, 5
-	add rcx, rbx
-	cmp rbx, upb-5
-	jl lp2
+	mov r8, 5
+	call sumloop
 	add rsi, rcx
-	xor rbx,rbx
-	xor rcx,rcx
-lp3:	
-	add rbx, 15
-	add rcx, rbx
-	cmp rbx, upb-15
-	jl lp3
+
+	mov r8, 15
+	call sumloop
 	sub rsi, rcx
 	
 	mov rax, 0
 	mov rdi, fmt
 	call printf
 
+	leave
+	ret
+sumloop:
+	push rbp
+	mov rbp,rsp
+	xor rcx,rcx
+	xor rbx,rbx
+l1:	cmp rbx, upb
+	jge sumloopout
+	add rcx, rbx
+	add rbx, r8
+	jmp l1
+sumloopout:
 	leave
 	ret
 	
