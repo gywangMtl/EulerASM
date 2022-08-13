@@ -12,7 +12,7 @@ all: problem1 problem2 problem3 problem5
 clean: cleanobj cleanexe
 
 cleanobj:
-	rm *.o
+	rm -f *.o
 
 cleanexe:
 	rm problem?
