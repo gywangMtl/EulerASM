@@ -1,14 +1,14 @@
 	extern printf
 
 	section .data
-	fmt     db 	"found %d",10,0
+	fmt     db 	"found %d = (%d * %d)",10,0
 	ten     dq	10
 
 	section .bss
 	product resq      1
 	q       resq      1
-	r       resq      1
-	p       resq      1
+	x       resq      1
+	y       resq      1
 	max3    equ 	999
 
 	section .text
@@ -18,10 +18,10 @@ main:
 	mov rbp, rsp
 	mov r10, 100*100
 	mov  r8, 100
-	mov  r9, 100
 outer:
 	cmp  r8, max3
 	jg   fin
+	mov  r9, r8
 inner:
 	cmp r9, max3
 	jg nextouter
@@ -37,11 +37,9 @@ inner:
 paliLoop:	
 	xor rdx, rdx
 	mov r11, [ten]
-divplace:
 	idiv r11
 	mov [q], rax	
 	mov rax, rcx
-br2:	
 	imul rax, r11
 	mov rcx, rax
 	add rcx, rdx
@@ -52,17 +50,20 @@ br2:
 	cmp rcx, rax
 	jne nextpair
 	mov r10, rax
+	mov [x], r9
+	mov [y], r8
 nextpair:
 	inc r9
 	jmp inner
 nextouter:
-	mov r9, 100
 	inc r8
 	jmp outer
 
 fin:	mov rsi, r10
 	xor rax,rax
 	mov rdi, fmt
+	mov rdx, [x]
+	mov rcx, [y]
 	call printf
 	
 	

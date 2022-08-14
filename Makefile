@@ -1,7 +1,7 @@
-NASMFLAGS = -felf64
-CCFLAGS = -no-pie
+NASMFLAGS = -felf64 -g 
+CCFLAGS = -no-pie -g
 
-all: problem1 problem2 problem3 problem5
+all: problem1 problem2 problem3 problem4 problem5
 
 %: %.o
 	gcc -o $@ $(CCFLAGS) $<
