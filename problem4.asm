@@ -2,7 +2,6 @@
 
 	section .data
 	fmt     db 	"found %d = (%d * %d)",10,0
-	ten     dq	10
 
 	section .bss
 	product resq      1
@@ -16,6 +15,7 @@
 main:
 	push rbp
 	mov rbp, rsp
+	mov r11, 10
 	mov r10, 100*100
 	mov  r8, 100
 outer:
@@ -36,7 +36,7 @@ inner:
 	xor rcx, rcx
 paliLoop:	
 	xor rdx, rdx
-	mov r11, [ten]
+	
 	idiv r11
 	mov [q], rax	
 	mov rax, rcx
