@@ -20,17 +20,15 @@ loop:	cmp rcx, n
 	jge  fin
 	
 nextPrime:
-	mov rax, [p]
-	add rax, 2
-	mov [p], rax
+	add qword [p], 2
 	mov r8,1
 testF:
 	add r8,2
 	mov rax, [p]
-	cmp rax, r8
-	jle foundPrime
 	xor rdx, rdx
 	idiv r8
+	cmp rax, r8
+	jl foundPrime
 	cmp rdx,0
 	jz nextPrime
 	jmp testF
