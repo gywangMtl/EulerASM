@@ -17,11 +17,11 @@ main:
 	mov rax, 3
 	mov [p], rax
 	mov qword [sum], 5
-loop:	cmp qword [p], n
-	jge  fin
 	
 nextPrime:
 	add qword [p], 2
+	cmp qword [p], n
+	jge  fin
 	mov r8,1
 testF:
 	add r8,2
@@ -39,7 +39,7 @@ foundPrime:
 	mov rax, [p]
 	add [sum], rax
 l:	
-	jmp loop
+	jmp nextPrime
 fin:
 	mov rsi, [sum]
 	xor rax,rax
