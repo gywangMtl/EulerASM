@@ -23,3 +23,36 @@
 	       db 20,69,36,41,72,30,23,88,34,62,99,69,82,67,59,85,74,04,36,16
 	       db 20,73,35,29,78,31,90,01,74,31,49,71,48,86,81,16,23,57,05,54
 	       db 01,70,54,71,83,51,54,69,16,92,33,48,61,43,52,01,89,19,67,48
+
+	len equ 20
+
+	section .bss
+	max resq 1
+	section .text
+	global main
+main:
+	push rsp
+	mov rbp, rsp
+
+	xor r8,r8
+
+new_row:	
+	cmp r8, 16
+	jg finish
+	xor r9,r9
+new_col:	
+	cmp r9, 16
+	jg next_row
+
+
+
+	inc r9
+	jmp new_col
+next_row:
+	inc r8
+	jmp new_row
+finish:
+	
+
+	leave
+	ret
