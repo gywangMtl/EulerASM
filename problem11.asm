@@ -25,7 +25,6 @@
 	       db 01,70,54,71,83,51,54,69,16,92,33,48,61,43,52,01,89,19,67,48
 
 	len equ 20
-
 	section .bss
 	max resq 1
 	section .text
@@ -33,18 +32,32 @@
 main:
 	push rsp
 	mov rbp, rsp
-
 	xor r8,r8
-
+	mov [max], r8
 new_row:	
-	cmp r8, 16
+	cmp r8, len - 1
 	jg finish
 	xor r9,r9
 new_col:	
-	cmp r9, 16
+	cmp r9, 20
 	jg next_row
 
+	cmp r9, 17
+	jg  v_prod
 
+	mov r10, r8
+	shl r10, 2
+	add r10, r8
+	shl r10, 2
+	add r10, r9
+v_prod:
+	xor rax, rax
+	mov al, [matrix+ r10]
+	cmp rax, [max]
+	jle skip
+	mov [max], rax
+
+skip:
 
 	inc r9
 	jmp new_col
